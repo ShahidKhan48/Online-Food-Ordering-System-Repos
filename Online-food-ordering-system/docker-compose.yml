@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: food_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: food_ordering
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql
+      - mysql_data:/var/lib/mysql
+    networks:
+      - food_network
+
+  tomcat:
+    image: tomcat:9.0
+    container_name: food_tomcat
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/usr/local/tomcat/webapps/food-order
+    depends_on:
+      - mysql
+    networks:
+      - food_network
+
+volumes:
+  mysql_data:
+
+networks:
+  food_network:
+    driver: bridge

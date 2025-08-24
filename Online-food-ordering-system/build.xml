@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="FoodOrderingSystem" default="compile" basedir=".">
+    
+    <property name="src.dir" value="src/main/java"/>
+    <property name="build.dir" value="WEB-INF/classes"/>
+    <property name="lib.dir" value="WEB-INF/lib"/>
+    
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="*.jar"/>
+        <pathelement path="${java.class.path}"/>
+    </path>
+    
+    <target name="compile">
+        <mkdir dir="${build.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${build.dir}" classpathref="classpath" includeantruntime="false"/>
+    </target>
+    
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+    
+</project>
